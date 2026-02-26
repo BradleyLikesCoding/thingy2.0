@@ -21,9 +21,6 @@ async function getCDNS(file = "cdn-test.txt", returnResponse = false, log = fals
                 success = content.includes(targetText);
             } else {
                 success = response.ok;
-                if (success) {
-                    success = await response.body != "404: Not Found";
-                }
             }
 
             if (success) {

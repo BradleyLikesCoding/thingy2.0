@@ -45,7 +45,7 @@ async function getGameHTML(game) {
     return (`
   <div class="game" onclick="openGame('${game["link"].slice(9).replace(/index\.html$/, '')}')">
     <div class="game-image-container">
-      <img class="game-image lazy" src="${await getCDNS(game["imgSrc"].slice(9), false, true)}">
+      <img class="game-image lazy" src="${await getCDNS(game["imgSrc"].slice(9), false)}">
     </div>
     <p class="game-title">
       ${game["title"]}
@@ -56,11 +56,23 @@ async function getGameHTML(game) {
 
 async function setGames(page) {
     var html = '<div class="game-row">';
+    const gamePromises = [];
+    
     for (var i = page * pageSize; i < searchedGamesJson.length; i++) {
-        html += await getGameHTML(searchedGamesJson[i]);
+        gamePromises.push(getGameHTML(searchedGamesJson[i]));
         if (((1 + i) - (page * pageSize)) % 5 == 0) html += '</div><div class="game-row">';
         if (i - (page * pageSize) == pageSize - 1) break;
     }
+    
+    const gameHTMLs = await Promise.all(gamePromises);
+    html = '<div class="game-row">';
+    let index = 0;
+    for (var i = page * pageSize; i < searchedGamesJson.length; i++) {
+        html += gameHTMLs[index++];
+        if (((1 + i) - (page * pageSize)) % 5 == 0) html += '</div><div class="game-row">';
+        if (i - (page * pageSize) == pageSize - 1) break;
+    }
+    
     gamesDiv.innerHTML = html + '</div>';
     if (!gamesDiv.childNodes[gamesDiv.childNodes.length - 1].hasChildNodes()) gamesDiv.childNodes[gamesDiv.childNodes.length - 1].remove();
     lazyLoad.update();
