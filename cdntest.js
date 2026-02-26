@@ -1,5 +1,5 @@
 const defaultCdnBases = [
-    'https://rawcdn.githack.com/BradleyLikesCoding/thingy2.0/main/',
+    'https://raw.githack.com/BradleyLikesCoding/thingy2.0/main/', //change to rawcdn for production
     'https://raw.githubusercontent.com/BradleyLikesCoding/thingy2.0/main/',
     'https://cdn.statically.io/gh/BradleyLikesCoding/thingy2.0@main/',
     'https://cdn.jsdelivr.net/gh/BradleyLikesCoding/thingy2.0@latest/',
