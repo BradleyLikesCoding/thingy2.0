@@ -13,7 +13,7 @@ self.addEventListener("fetch", event => {
     const id = url.searchParams.get("id");
     if (id) {
       event.respondWith((async () => {
-        const response = await getCDNS(id + "index.html", true);
+        const response = await getCDNS(id + "index.html", true, true);
         if (event.resultingClientId) {
           clientGameMap.set(event.resultingClientId, id);
         }
@@ -54,7 +54,13 @@ self.addEventListener("fetch", event => {
     }
     
     if (gameId) {
-      return getCDNS(gameID + url.pathname, true);
+      const response = await getCDNS(gameId + url.pathname, true);
+      
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: response.headers
+      });
     }
 
     console.log("Couldn't fetch " + event.request.url + " because a game id could not be found");

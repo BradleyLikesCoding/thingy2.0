@@ -41,11 +41,11 @@ async function loadGames() {
     setGames(0);
 }
 
-function getGameHTML(game) {
+async function getGameHTML(game) {
     return (`
-  <div class="game" onclick="openGame('${game["link"].slice(9)}')">
+  <div class="game" onclick="openGame('${game["link"].slice(9).replace(/index\.html$/, '')}')">
     <div class="game-image-container">
-      <img class="game-image lazy" src="${getCDNS(game["imgSrc"].slice(9))}">
+      <img class="game-image lazy" src="${await getCDNS(game["imgSrc"].slice(9), false, true)}">
     </div>
     <p class="game-title">
       ${game["title"]}
@@ -54,10 +54,10 @@ function getGameHTML(game) {
   `);
 }
 
-function setGames(page) {
+async function setGames(page) {
     var html = '<div class="game-row">';
     for (var i = page * pageSize; i < searchedGamesJson.length; i++) {
-        html += getGameHTML(searchedGamesJson[i]);
+        html += await getGameHTML(searchedGamesJson[i]);
         if (((1 + i) - (page * pageSize)) % 5 == 0) html += '</div><div class="game-row">';
         if (i - (page * pageSize) == pageSize - 1) break;
     }

@@ -3,11 +3,10 @@ const defaultCdnBases = [
     'https://raw.githubusercontent.com/BradleyLikesCoding/thingy2.0/main/',
     'https://cdn.statically.io/gh/BradleyLikesCoding/thingy2.0@main/',
     'https://cdn.jsdelivr.net/gh/BradleyLikesCoding/thingy2.0@latest/',
-    'http://htmlpreview.github.io/?https://github.com/BradleyLikesCoding/thingy2.0/blob/main/',
     'https://dev.combinatronics.io/BradleyLikesCoding/thingy2.0/main/',
 ];
 
-async function getCDNS(file = "cdn-test.txt", returnResponse = false, cdnBases = defaultCdnBases, log = false) {
+async function getCDNS(file = "cdn-test.txt", returnResponse = false, log = false, cdnBases = defaultCdnBases) {
     const targetText = 'this file is used to test if a cdn is blocked';
 
     for (let i = 0; i < cdnBases.length; i++) {
@@ -22,6 +21,9 @@ async function getCDNS(file = "cdn-test.txt", returnResponse = false, cdnBases =
                 success = content.includes(targetText);
             } else {
                 success = response.ok;
+                if (success) {
+                    success = await response.body != "404: Not Found";
+                }
             }
 
             if (success) {
