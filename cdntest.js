@@ -3,8 +3,8 @@ const defaultCdnBases = [
     'https://raw.githubusercontent.com/BradleyLikesCoding/thingy2.0/main/',
     'https://cdn.statically.io/gh/BradleyLikesCoding/thingy2.0@main/',
     'https://cdn.jsdelivr.net/gh/BradleyLikesCoding/thingy2.0@latest/',
-    'https://dev.combinatronics.io/BradleyLikesCoding/thingy2.0/main/',
     'http://htmlpreview.github.io/?https://github.com/BradleyLikesCoding/thingy2.0/blob/main/',
+    'https://dev.combinatronics.io/BradleyLikesCoding/thingy2.0/main/',
 ];
 
 async function getCDNS(file = "cdn-test.txt", returnResponse = false, cdnBases = defaultCdnBases, log = false) {

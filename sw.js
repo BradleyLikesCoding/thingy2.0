@@ -32,8 +32,8 @@ self.addEventListener("fetch", event => {
       return;
     }
   }
-  console.log(request.url)
-  if (event.request.mode === "navigate" || !event.request.url.pathname.includes("/load")) return;
+  
+  if (event.request.mode === "navigate" || !event.request.url.includes("/load")) return;
 
   // Proxy /js/main.js to /games.js
   if (url.pathname === "/js/main.js") {
