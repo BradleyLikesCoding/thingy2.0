@@ -24,10 +24,10 @@ function throwError(error) {
     alert(error);
 }
 
-async function openGame(gameURL) {
+async function openGame(gameID) {
     showLoading();
     try {
-        window.open("./load?id=" + gameURL.split("/").slice(0, -1).join("/"));
+        window.open("./load?id=" + gameID);
     } catch (err) {
         throwError("Error Opening Game: " + err.message);
     }
@@ -47,7 +47,7 @@ async function loadGames() {
 
 function getGameHTML(game) {
     return (`
-  <div class="game" onclick="openGame('${CDN + game["link"].slice(9)}')">
+  <div class="game" onclick="openGame('${game["link"].slice(9)}')">
     <div class="game-image-container">
       <img class="game-image lazy" src="${IMAGE_CDN + game["imgSrc"].slice(9)}">
     </div>
@@ -105,7 +105,7 @@ function scrollToTopOfGames() {
 
 function registerSW() {
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js', { scope: '/' })
+        navigator.serviceWorker.register(getCDNS("sw.js"), { scope: '/' })
             .then(async reg => {
                 console.log('SW registered:', reg.scope);
                 await navigator.serviceWorker.ready;
