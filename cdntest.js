@@ -42,5 +42,7 @@ async function getCDNS(file = "cdn-test.txt", returnResponse = false, cdnBases =
     }
 
     if (log) console.log('No working CDN found');
-    return null;
+    return returnResponse 
+        ? new Response("CDN unavailable", { status: 503, statusText: "Service Unavailable" }) 
+        : null;
 }

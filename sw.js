@@ -13,7 +13,7 @@ self.addEventListener("fetch", event => {
     const id = url.searchParams.get("id");
     if (id) {
       event.respondWith((async () => {
-        const response = await fetch(id + "/index.html");
+        const response = await getCDNS(id + "index.html", true);
         if (event.resultingClientId) {
           clientGameMap.set(event.resultingClientId, id);
         }
@@ -32,12 +32,12 @@ self.addEventListener("fetch", event => {
       return;
     }
   }
-
-  if (event.request.mode === "navigate") return;
+  console.log(request.url)
+  if (event.request.mode === "navigate" || !event.request.url.pathname.includes("/load")) return;
 
   // Proxy /js/main.js to /games.js
   if (url.pathname === "/js/main.js") {
-    event.respondWith(fetch("/games.js"));
+    event.respondWith(getCDNS("games.js", true));
     return;
   }
 
@@ -54,9 +54,10 @@ self.addEventListener("fetch", event => {
     }
     
     if (gameId) {
-      return fetch(gameId + url.pathname);
+      return getCDNS(gameID + url.pathname, true);
     }
 
+    console.log("Couldn't fetch " + event.request.url + " because a game id could not be found");
     return fetch(event.request);
   })());
 });

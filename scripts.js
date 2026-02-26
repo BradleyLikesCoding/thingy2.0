@@ -8,10 +8,6 @@ var gamesDiv = document.getElementById("games-container")
 
 const pageSize = 50;
 
-const IMAGE_CDN = "https://glcdn.githack.com/3kh0/3kh0-assets/-/raw/main/"
-const CDN = "https://cdn.statically.io/gl/3kh0/3kh0-assets@main/";
-const JSON_CDN = "https://cdn.statically.io/gh/3kh0/3kh0-lite@main/config/games.json";
-
 function showLoading() {
     document.getElementsByClassName("loading-cover")[0].style.display = "flex";
 }
@@ -24,10 +20,10 @@ function throwError(error) {
     alert(error);
 }
 
-async function openGame(gameID) {
+async function openGame(gameURL) {
     showLoading();
     try {
-        window.open("./load?id=" + gameID);
+        window.open("./load?id=" + gameURL);
     } catch (err) {
         throwError("Error Opening Game: " + err.message);
     }
@@ -35,7 +31,7 @@ async function openGame(gameID) {
 }
 
 async function loadGames() {
-    const res = await fetch(JSON_CDN);
+    const res = await getCDNS("games.json", true);
     if (!res.ok) throw new Error("Failed to fetch games list");
     const games = await res.json();
     gamesJson = games;
@@ -49,7 +45,7 @@ function getGameHTML(game) {
     return (`
   <div class="game" onclick="openGame('${game["link"].slice(9)}')">
     <div class="game-image-container">
-      <img class="game-image lazy" src="${IMAGE_CDN + game["imgSrc"].slice(9)}">
+      <img class="game-image lazy" src="${getCDNS(game["imgSrc"].slice(9))}">
     </div>
     <p class="game-title">
       ${game["title"]}
@@ -105,7 +101,7 @@ function scrollToTopOfGames() {
 
 async function registerSW() {
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register(await getCDNS("sw.js"), { scope: './' })
+        navigator.serviceWorker.register("./sw.js", { scope: './' })
             .then(async reg => {
                 console.log('SW registered:', reg.scope);
                 await navigator.serviceWorker.ready;
