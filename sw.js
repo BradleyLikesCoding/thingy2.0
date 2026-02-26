@@ -1,4 +1,4 @@
-importScripts(new URL('./cdntest.js', self.location.href).href);
+importScripts("./cdntest.js");
 
 self.addEventListener("install", event => self.skipWaiting());
 self.addEventListener("activate", event => event.waitUntil(self.clients.claim()));
