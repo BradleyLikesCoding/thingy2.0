@@ -103,9 +103,9 @@ function scrollToTopOfGames() {
     document.querySelector("main").scroll({ top: 0, left: 0, behavior: "instant" });
 }
 
-function registerSW() {
+async function registerSW() {
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register(getCDNS("sw.js"), { scope: '/' })
+        navigator.serviceWorker.register(await getCDNS("sw.js"), { scope: './' })
             .then(async reg => {
                 console.log('SW registered:', reg.scope);
                 await navigator.serviceWorker.ready;
