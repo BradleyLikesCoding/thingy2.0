@@ -1,0 +1,223 @@
+:root {
+    --primary: #1e3a8a;      /* Deep blue */
+    --gradient: #6366f1;     /* Soft indigo */
+    --secondary: #22223b;    /* Dark slate */
+    --text: #e0e1dd;         /* Light gray */
+    --effects: #a5b4fc;      /* Light indigo for glows/shadows */
+    --h1: #d9ecf3;           /* Warm gold for headings */
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+body {
+  background: linear-gradient(50deg, var(--primary), 70%, var(--gradient));
+}
+.loading-cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(30, 42, 138, 0.7); /* dim with primary color */
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    pointer-events: all;
+    display: none;
+}
+
+.loading-text {
+    color: var(--h1);
+    font-family: "Poppins", "Noto Sans", sans-serif;
+    font-size: 3em;
+    font-weight: 600;
+    background: rgba(34, 34, 59, 0.85);
+    padding: 1em 2em;
+    border-radius: 12px;
+    box-shadow: 0 0 30px var(--effects);
+    text-align: center;
+}
+
+.search-bar {
+  text-align: center;
+  margin-bottom: 5vh;
+  left: 30%;
+  width: 40vw;
+  padding: 5px;
+  font-size: 14px;
+  height: 50px;
+  background: none;
+  padding: 0px 17px;
+  border: 1px solid var(--text);
+  border-radius: 10px;
+  color: white;
+  transition-duration: 0.5s;
+
+}
+/* 
+
+  */
+::placeholder {
+  color: var(--text);
+}
+
+.search-bar:focus {
+  box-shadow: 0 0 30px var(--effects);
+}
+
+.pages {
+  color: var(--text);
+  margin-bottom: 1vh;
+}
+
+.switch-page {
+  margin: 2vh;
+  cursor: pointer;
+}
+
+.game-container {
+  width: 80vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  padding: 0;
+}
+
+.game-row {
+  display: block;
+  margin: 0;
+  height: 16vw;
+}
+
+.game {
+  display: inline-block;
+  width: 14vw;
+  padding: 5px;
+  margin: 1vw;
+  background-color: var(--secondary);
+  border-radius: 10px;
+  height: 12vw;
+  overflow: hidden;
+  transition-duration: 0.2s;
+}
+
+.game:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px var(--effects);
+
+}
+
+.game-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.game-image-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 65%;
+  cursor: pointer;
+}
+
+.game-title { 
+  font-size: 1.25vw;
+  padding: 0.25vw;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  cursor: pointer;
+  color: var(--text);
+}
+
+main {
+  text-align: center;
+  margin: 0;
+  height: 100%;
+  overflow-y:scroll;
+}
+
+.title {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 300;
+  font-size: 7em;
+  margin: 1vh;
+  color: var(--h1);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@keyframes show-proxy-div {
+  from {
+    bottom: -100vh;
+    top: 100vh;
+  }
+  to {
+    bottom: 0;
+    top: 0;
+  }
+}
+
+@keyframes hide-proxy-div {
+  from {
+    bottom: 0;
+    top: 0;
+    display: block;
+  }
+  to {
+    bottom: -100vh;
+    top: 100vh;
+    display: block;
+  }
+}
+
+.hide-proxy-div {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  animation-name: hide-proxy-div;
+  animation-duration: 0.5s;
+  z-index: 10;
+}
+
+.show-proxy-div {
+  display: block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  animation-name: show-proxy-div;
+  animation-duration: 0.5s;
+  z-index: 10;
+}
+
+#uv-frame {
+  height: 100vh;
+  width: 100vw;
+  border: none;
+}
